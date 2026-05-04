@@ -16,19 +16,23 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        manifest = builtins.fromJSON (builtins.readFile ./.manifest.json);
+        version = manifest.".";
+        go = pkgs.go_1_26;
       in
       {
         packages.default = pkgs.buildGoModule {
+          inherit version go;
           pname = "spoofdpi";
-          version = "dev";
           src = self;
-          vendorHash = "sha256-FcepbOIB3CvHmTPiGWXukPg41uueQQYdZeVKmzjRuwA=";
+          vendorHash = "sha256-KHP6497t4DFnYyTkcuTaCrpK6j14AwWjZeYDyEfjXBg=";
           subPackages = [ "cmd/spoofdpi" ];
           buildInputs = pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.libpcap ];
-          env.CGO_ENABLED = if pkgs.stdenv.isLinux then "0" else "1";
+          env.CGO_ENABLED = if pkgs.stdenv.isDarwin then "1" else "0";
           ldflags = [
             "-s"
             "-w"
+            "-X main.version=${version}"
             "-X main.build=flake"
             "-X main.commit=${self.shortRev or "dirty"}"
           ];
@@ -38,6 +42,8 @@
             license = pkgs.lib.licenses.asl20;
           };
         };
+
+        devShells.default = import ./shell.nix { inherit pkgs; };
       }
     );
 }
