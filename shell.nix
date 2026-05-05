@@ -43,6 +43,7 @@ pkgs.mkShell {
     golangci-lint-langserver
     golangciLint
     (pkgs.python312.withPackages (pyPkgs: with pyPkgs; [ mkdocs-material ]))
+    commitlint
   ];
 
   shellHook = # sh
