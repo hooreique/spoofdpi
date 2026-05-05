@@ -4,16 +4,22 @@ This document outlines how to run tests and the conventions for writing new test
 
 ## Running Tests
 
-To run all tests in the project, use the standard `go test` command from the root directory:
+To run tests that do not require network access, use the standard `go test` command from the root directory:
 
 ```console
 $ go test ./...
 ```
 
-To run tests with verbose output (showing all test names):
+To run all tests, including tests that require network access, pass the `network` build tag:
 
 ```console
-$ go test -v ./...
+$ go test -tags network ./...
+```
+
+To run all tests with verbose output (showing all test names):
+
+```console
+$ go test -v -tags network ./...
 ```
 
 To run a specific test function (e.g., `TestCreateCommand_Flags`):
