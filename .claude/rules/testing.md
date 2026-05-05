@@ -1,6 +1,6 @@
 # Testing
 
-After any code change, run `go test ./...` from the project root and all tests must pass before considering the task complete.
+After any code change, run `go test -tags network ./...` from the project root and all tests must pass before considering the task complete. Use `go test ./...` only when network-dependent tests must be excluded, such as sandboxed Nix builds.
 
 These conventions follow the patterns established in `internal/config/*_test.go`. Apply them to new tests; only deviate when there is a clear, code-specific reason.
 
