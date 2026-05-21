@@ -7,16 +7,15 @@ spoofdpi is a proxy tool that bypasses Deep Packet Inspection (DPI) — the tech
 ## Testing
 
 ```console
-$ go test -tags network ./...
+$ go test -tags network ./... -v
 ```
-
-Use `go test ./...` to exclude network-dependent tests (e.g. sandboxed Nix builds).
 
 ## Formatting
 
 ```console
-$ golangci-lint fmt   # format
-$ golangci-lint run   # lint (config: .golangci.yml)
+$ golangci-lint fmt --diff # check
+$ golangci-lint fmt        # format
+$ golangci-lint run        # lint (config: .golangci.yml)
 ```
 
 Or use `make fmt` / `make lint`.
